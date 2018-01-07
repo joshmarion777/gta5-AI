@@ -15,12 +15,20 @@ time.sleep(3)
 print('up')
 PressKey(W)
 
+def  roi(img, vertices):
+    mask = np.zeros_like(img)
+    cv2.fillpolly(mask, vertices, 255)
+    masked = cv2.bitwise_and(img, mask)
+    return maskedv
+
 def process_img(image):
  
     original_image = image
     #BGR TO GRAY because the [0,255,255] is bgr and [0,8,8] is gray for simpler data manipulation
     processed_img = cv2.cvtColor(original_image, cv2.COLOR_BGR2GRAY)
     processed_img= cv2.Canny(processed_img, 200, 300)
+    vertices = np.array([10,500], [10,300],[300,200],[500,200],[800,300],[800,500])
+    processed_img = roi (processed_img, vertices)
     return processed_img
 
 last_time = time.time()
